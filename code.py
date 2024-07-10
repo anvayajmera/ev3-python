@@ -1,3 +1,7 @@
+#THIS IS THE CODE FOR THE EV3 WATER TUB JET!
+#I spent half of my time writing the Terminal commands to actually access python on my ev3 :)
+
+
 import time
 import ev3dev.ev3 as ev3
 
