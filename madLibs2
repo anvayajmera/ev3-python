@@ -1,0 +1,78 @@
+import random, string
+
+story = """
+In the {place}, there was a {adjective} {character}. Every day, the {character} 
+would {verb} around {location}. One {time_of_day}, the {character} found a {adjective_2} 
+{object}. Excitedly, the {character} {verb_past} it and decided to {verb_2}. It turned 
+out to be a {adjective_3} adventure!
+"""
+
+places = ["forest", "castle", "space station", "underwater city", "deserted island"]
+adjectives = ["curious", "brave", "mysterious", "adventurous", "cautious"]
+characters = ["explorer", "robot", "knight", "scientist", "pirate"]
+verbs = ["wander", "explore", "roam", "patrol", "travel"]
+locations = ["the area", "the land", "the vicinity", "the terrain", "the surroundings"]
+times_of_day = ["morning", "afternoon", "evening", "night", "dawn"]
+adjectives_2 = ["glowing", "ancient", "sparkling", "odd", "unusual"]
+objects = ["artifact", "device", "treasure", "map", "crystal"]
+verbs_past = ["examined", "inspected", "observed", "studied", "scrutinized"]
+verbs_2 = ["investigate", "keep", "sell", "hide", "use"]
+adjectives_3 = ["incredible", "unexpected", "amazing", "bizarre", "fantastic"]
+
+def get_random_element(lst):
+    return random.choice(lst)
+
+def generate_random_string(length):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+
+def create_mad_lib():
+    place = get_random_element(places)
+    adjective = get_random_element(adjectives)
+    character = get_random_element(characters)
+    verb = get_random_element(verbs)
+    location = get_random_element(locations)
+    time_of_day = get_random_element(times_of_day)
+    adjective_2 = get_random_element(adjectives_2)
+    object = get_random_element(objects)
+    verb_past = get_random_element(verbs_past)
+    verb_2 = get_random_element(verbs_2)
+    adjective_3 = get_random_element(adjectives_3)
+    
+    return story.format(
+        place=place, adjective=adjective, character=character, 
+        verb=verb, location=location, time_of_day=time_of_day, 
+        adjective_2=adjective_2, object=object, verb_past=verb_past, 
+        verb_2=verb_2, adjective_3=adjective_3)
+
+print(create_mad_lib())
+
+def get_input(prompt):
+    return input(prompt).strip()
+
+while True:
+    user_place = get_input("Enter a place: ")
+    user_adjective = get_input("Enter an adjective: ")
+    user_character = get_input("Enter a character: ")
+    user_verb = get_input("Enter a verb: ")
+    user_location = get_input("Enter a location: ")
+    user_time_of_day = get_input("Enter a time of day: ")
+    user_adjective_2 = get_input("Enter another adjective: ")
+    user_object = get_input("Enter an object: ")
+    user_verb_past = get_input("Enter a past tense verb: ")
+    user_verb_2 = get_input("Enter another verb: ")
+    user_adjective_3 = get_input("Enter one last adjective: ")
+    
+    user_mad_lib = story.format(
+        place=user_place, adjective=user_adjective, character=user_character, 
+        verb=user_verb, location=user_location, time_of_day=user_time_of_day, 
+        adjective_2=user_adjective_2, object=user_object, verb_past=user_verb_past, 
+        verb_2=user_verb_2, adjective_3=user_adjective_3)
+
+    print(user_mad_lib)
+    
+    another = get_input("Do you want to create another Mad Lib? (yes/no): ")
+    if another.lower() != 'yes':
+        break
+
+for _ in range(3):
+    print(generate_random_string(15))
