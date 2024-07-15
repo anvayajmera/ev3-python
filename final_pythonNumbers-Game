@@ -1,0 +1,133 @@
+import random
+
+high_scores = []
+score_history = {}
+
+def game():
+    print("Welcome to the Ultimate Exercise Game!")
+    print("You have 3 tries to guess the number!")
+    secret = random.randint(1, 100)
+    tries = 0
+    score = 20
+    hint_used = False
+
+    while tries < 3:
+        guess = int(input("Enter your guess (1-100): "))
+        if guess < 1 or guess > 100:
+            print("Invalid input! Please guess a number between 1 and 100.")
+            continue
+        if guess == secret:
+            print(f"Correct! You scored {score} points!")
+            high_scores.append(score)
+            record_score(score)
+            break
+        elif guess < secret:
+            print("Too low! Try again.")
+            score -= 4
+        else:
+            print("Too high! Try again.")
+            score -= 4
+        tries += 1
+
+        if not hint_used and tries == 2:
+            hint = input("Would you like a hint? (y/n): ")
+            if hint.lower() == 'y':
+                if secret % 2 == 0:
+                    print("Hint: The number is even.")
+                else:
+                    print("Hint: The number is odd.")
+                hint_used = True
+
+    if tries == 3:
+        print(f"Game Over! The number was {secret}. Final Score: {score}")
+    display_high_scores()
+
+def record_score(score):
+    player_name = input("Enter your name for the score record: ")
+    if player_name in score_history:
+        score_history[player_name].append(score)
+    else:
+        score_history[player_name] = [score]
+    print(f"{player_name}'s score has been recorded!")
+
+def display_high_scores():
+    print("High Scores:")
+    if not high_scores:
+        print("No high scores yet!")
+    else:
+        for i, score in enumerate(sorted(high_scores, reverse=True)[:5]):
+            print(f"{i + 1}. {score} points")
+    print("\nScore History:")
+    for player, scores in score_history.items():
+        print(f"{player}: {scores}")
+
+def reset_scores():
+    global high_scores, score_history
+    high_scores = []
+    score_history = {}
+    print("High scores and score history have been reset.")
+
+def instructions():
+    print("Instructions: Guess the number between 1 and 100.")
+    print("You have 3 tries. Score points for correct guesses!")
+    print("Using a hint costs you points, so choose wisely!")
+    print("Good luck and have fun!")
+
+def main_menu():
+    print("\nMain Menu:")
+    print("1. Start Game")
+    print("2. Instructions")
+    print("3. High Scores")
+    print("4. Reset High Scores")
+    print("5. Exit")
+
+while True:
+    main_menu()
+    choice = int(input("Choose an option: "))
+    if choice == 1:
+        while True:
+            game()
+            replay = input("Do you want to play again? (y/n): ")
+            if replay.lower() != 'y':
+                break
+    elif choice == 2:
+        instructions()
+    elif choice == 3:
+        display_high_scores()
+    elif choice == 4:
+        reset_scores()
+    elif choice == 5:
+        print("Exiting...")
+        break
+    else:
+        print("Invalid option. Please try again.")
+
+print("Thank you for playing the Ultimate Exercise Game!")
+
+# Extra Features
+def game_statistics():
+    if not high_scores:
+        print("No scores available for statistics.")
+        return
+    avg_score = sum(high_scores) / len(high_scores)
+    print(f"Average Score: {avg_score:.2f}")
+    print(f"Total Games Played: {len(high_scores)}")
+
+def main():
+    print("Welcome to the Game Hub!")
+    while True:
+        print("1. Start Main Game")
+        print("2. View Game Stats")
+        print("3. Exit Hub")
+        option = input("Select an option: ")
+        if option == "1":
+            game()
+        elif option == "2":
+            game_statistics()
+        elif option == "3":
+            print("Exiting Game Hub...")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+main()
