@@ -3,11 +3,12 @@ import random
 high_scores = []
 
 def game():
-    print("Welcome to the Exercise Game!")
+    print("Welcome to the Enhanced Exercise Game!")
     print("You have 3 tries to guess the number!")
-    secret = random.randint(1, 20)
+    secret = random.randint(1, 50)
     tries = 0
     score = 10
+    hint_used = False
     while tries < 3:
         guess = int(input("Enter your guess: "))
         if guess == secret:
@@ -21,6 +22,13 @@ def game():
             print("Too high! Try again.")
             score -= 2
         tries += 1
+
+        if not hint_used and tries == 2:
+            hint = input("Would you like a hint? (y/n): ")
+            if hint.lower() == 'y':
+                print(f"The number is {'even' if secret % 2 == 0 else 'odd'}.")
+                hint_used = True
+
     if tries == 3:
         print(f"Game Over! The number was {secret}. Final Score: {score}")
     display_high_scores()
@@ -34,7 +42,7 @@ def display_high_scores():
             print(f"{i + 1}. {score} points")
 
 def instructions():
-    print("Instructions: Guess the number between 1 and 20. Score points for correct guesses!")
+    print("Instructions: Guess the number between 1 and 50. Score points for correct guesses!")
 
 def main_menu():
     print("1. Start Game")
